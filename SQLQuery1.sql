@@ -1,0 +1,1 @@
+﻿delete movies where ID in (3,4,5)

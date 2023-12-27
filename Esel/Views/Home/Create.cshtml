@@ -1,0 +1,49 @@
+﻿@model MovieModel
+
+<div class="container mx-4 my-4">
+    <br />
+    <form method="POST">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <label for="Name">Film Adı</label>
+            <input asp-for="Name" class="form-control" placeholder="Film Adı">
+        </div>
+        <div class="form-group">
+            <label for="Name">Film Çıkış Yılı</label>
+            <input asp-for="ProductionYear" class="form-control" placeholder="Film Çıkış Yılı">
+        </div>
+        <div class="form-group">
+            <label for="IMDbStar">Film IMDb ID'si</label>
+            <input asp-for="IMDbStar" class="form-control" placeholder="Film IMDb ID'si">
+        </div>
+        <div class="form-group">
+            <label for="Description">Açıklama</label>
+            <textarea asp-for="Description" class="form-control" placeholder="Açıklama"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="Name">Yönetmen</label>
+            <input asp-for="Yonetmen" class="form-control" placeholder="Yönetmen">
+        </div>
+        <div class="form-group">
+            <label for="Oyuncular">Oyuncular</label>
+            <input asp-for="Oyuncular" class="form-control" placeholder="Oyuncular">
+        </div>
+        <div class="form-group">
+            <label for="ImageUrl">Film Afişi</label>
+            <input asp-for="ImageUrl" class="form-control" placeholder="Örn: 1.jpg">
+        </div>
+        <div class="form-group">
+            <label for="TrailerUrl">Film Fragmanı</label>
+            <input asp-for="TrailerUrl" class="form-control" placeholder="Film Fragmanı">
+        </div>
+        <div class="form-group">
+            <label for="CategoryId">Kategori</label>
+            <select asp-for="CategoryId" asp-items="@ViewBag.Categories" class="form-control">
+                <option selected disabled>Seçiniz</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-block btn-warning" style="background-color:#C1937D !important;">Ekle</button>
+        <br />
+        <br />
+    </form>
+</div>
