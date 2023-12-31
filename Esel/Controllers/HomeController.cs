@@ -3,6 +3,7 @@ using Esel.Interface;
 using Esel.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using System.Diagnostics;
 
 namespace Esel.Controllers
@@ -21,7 +22,6 @@ namespace Esel.Controllers
             _repository = repository;
             //_repository = repository;
         }
-
         public IActionResult Index(int id)
         {
             var returnmovies = _repository.Movies;
@@ -36,15 +36,13 @@ namespace Esel.Controllers
             return View(returnmovies);
 
         }
-
-
         [HttpPost]
         public IActionResult Index(string searchQuery)
         {
             var returnmovies = _repository.Movies;
             if (!string.IsNullOrEmpty(searchQuery))
             {
-                returnmovies = returnmovies.Where(i => i.Name.Contains(searchQuery)).ToList();
+                returnmovies = returnmovies.Where(i => i.Name.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
             }
             else
             {
@@ -58,10 +56,11 @@ namespace Esel.Controllers
             ViewBag.Categories = new SelectList(CategoryRepository.Categories, "Id", "Name");
             return View();
         }
-
         [HttpPost]
         public IActionResult Create(MovieModel m)
         {
+            m.TrailerUrl = ConvertToEmbedLink(m.TrailerUrl);
+
             _context.Movies.Add(m);
             _context.SaveChanges();
 
@@ -69,12 +68,43 @@ namespace Esel.Controllers
 
 
         }
-
         public IActionResult Details (int id)
         {
             return View(_repository.Movies.FirstOrDefault(i=>i.Id == id));
         }
 
+        private string ConvertToEmbedLink(string youtubeLink)
+        {
+            try
+            {
+                var url = new System.Uri(youtubeLink);
+                var host = url.Host.ToLower();
 
+                if (host.Contains("youtu.be"))
+                {
+                    //https://youtu.be/bsgcpU9P14U?si
+
+                    // https://youtu.be/VIDEO_ID
+                    return "https://www.youtube.com/embed" + url.PathAndQuery;
+                }
+                else if (host.Contains("youtube.com"))
+                {
+                    // https://www.youtube.com/watch?v=VIDEO_ID
+                    var query = System.Web.HttpUtility.ParseQueryString(url.Query);
+                    string videoId = query["v"];
+                    if (!string.IsNullOrEmpty(videoId))
+                    {
+                        return "https://www.youtube.com/embed/" + videoId;
+                    }
+                }
+
+                return null;
+            }
+            catch (System.UriFormatException)
+            {
+                return null; // Hatal? URL
+            }
+        }
     }
+
 }

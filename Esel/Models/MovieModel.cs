@@ -15,12 +15,9 @@ namespace Esel.Models
         public string IMDbStar { get; set; }
         public string Yonetmen { get; set; }
         public string Oyuncular { get; set; }
-
         [Required(ErrorMessage = "Fotoğraf alanı boş bırakılamaz!")]
         public string ImageUrl { get; set; }
-
         public string TrailerUrl { get; set; }
-
         [Required(ErrorMessage = "Kategori alanı boş bırakılamaz!")]
         public int CategoryId { get; set; }
     }

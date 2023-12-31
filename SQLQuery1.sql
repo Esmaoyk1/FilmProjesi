@@ -1,1 +1,2 @@
-﻿delete movies where ID in (3,4,5)
+﻿delete Movies where Id=11
+select *from Movies
