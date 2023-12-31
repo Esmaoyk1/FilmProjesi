@@ -15,5 +15,6 @@ namespace Esel.Models
         public IEnumerable<MovieModel> Movies => _context.Movies;
 
         public IEnumerable<CategoryModel> Categories => _context.Category;
+
     }
 }

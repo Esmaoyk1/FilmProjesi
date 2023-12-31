@@ -14,6 +14,11 @@ namespace Esel.Controllers
         readonly EselDbContext _context;
         readonly IRepository _repository;
 
+        //Attribute
+        // [HttpGet]
+        // [HttpPost]
+        // [HttpPut]
+        // [HttpDelete]
 
         public HomeController(ILogger<HomeController> logger, EselDbContext context, IRepository repository)
         {
@@ -51,6 +56,8 @@ namespace Esel.Controllers
             }
             return View(returnmovies);
         }
+
+
         public IActionResult Create()
         {
             ViewBag.Categories = new SelectList(CategoryRepository.Categories, "Id", "Name");
