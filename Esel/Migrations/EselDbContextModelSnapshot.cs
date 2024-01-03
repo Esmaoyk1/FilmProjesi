@@ -30,11 +30,8 @@ namespace Esel.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int?>("MovieCategoryModelId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -42,27 +39,7 @@ namespace Esel.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MovieCategoryModelId");
-
                     b.ToTable("Category");
-                });
-
-            modelBuilder.Entity("Esel.Models.MovieCategoryModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("MovieId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MovieId");
-
-                    b.ToTable("MovieCategoryModels");
                 });
 
             modelBuilder.Entity("Esel.Models.MovieModel", b =>
@@ -88,9 +65,6 @@ namespace Esel.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("MovieCategoryModelId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -114,41 +88,7 @@ namespace Esel.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MovieCategoryModelId");
-
                     b.ToTable("Movies");
-                });
-
-            modelBuilder.Entity("Esel.Models.CategoryModel", b =>
-                {
-                    b.HasOne("Esel.Models.MovieCategoryModel", null)
-                        .WithMany("Categories")
-                        .HasForeignKey("MovieCategoryModelId");
-                });
-
-            modelBuilder.Entity("Esel.Models.MovieCategoryModel", b =>
-                {
-                    b.HasOne("Esel.Models.MovieModel", "Movie")
-                        .WithMany()
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Movie");
-                });
-
-            modelBuilder.Entity("Esel.Models.MovieModel", b =>
-                {
-                    b.HasOne("Esel.Models.MovieCategoryModel", null)
-                        .WithMany("Movies")
-                        .HasForeignKey("MovieCategoryModelId");
-                });
-
-            modelBuilder.Entity("Esel.Models.MovieCategoryModel", b =>
-                {
-                    b.Navigation("Categories");
-
-                    b.Navigation("Movies");
                 });
 #pragma warning restore 612, 618
         }

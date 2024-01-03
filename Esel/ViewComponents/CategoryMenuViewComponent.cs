@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Esel.ViewComponents
 {
-    public class CategoryMenuViewComponent : ViewComponent
+    public class CategoryMenuViewComponent : ViewComponent      //miras aldı
     {
         public IViewComponentResult Invoke()
         {
@@ -16,3 +16,4 @@ namespace Esel.ViewComponents
         }
     }
 }
+//***************************

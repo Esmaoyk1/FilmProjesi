@@ -8,22 +8,22 @@
     
     <form method="post" action="/" class="arama" style="margin-top: -20px; margin-bottom:20px;">
         <input type="text" id="searchQuery" name="searchQuery" onkeyup="searchOnChange()" />
-        <button type="submit" style="text-decoration:none; background-color: #C1937D; color: #000000">Ara</button>
+        <button type="submit" style="text-decoration:none; background-color: deeppink; color: #000000">Ara</button>
     </form>
  
 
     
     <div class="col-md-10">
-        @Html.Partial("_movies", Model)
-
+        @Html.Partial("_movies", Model) @* movies cagrıldı içersine modeli gonderdik .filmleri*@
     </div>
+
+
     <div class="col-md-2">
         @await Component.InvokeAsync("CategoryMenu")
     </div>
 
 
 </div>
-
 
 
 

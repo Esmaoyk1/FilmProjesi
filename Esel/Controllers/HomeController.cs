@@ -1,4 +1,4 @@
-using Esel.Data;
+﻿using Esel.Data;
 using Esel.Interface;
 using Esel.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -10,44 +10,48 @@ namespace Esel.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        readonly ILogger<HomeController> _logger;
         readonly EselDbContext _context;
-        readonly IRepository _repository;
+        readonly IRepository _repository; //kurucu içerisinde atanabilir ve de?i?tirilemez.
+
+        public HomeController(EselDbContext context, ILogger<HomeController> logger, IRepository repository)
+        {
+            _context = context;
+            _logger = logger;   //atan?r,bu alanlar s?n?f?n di?er yerlerinde kullan?labilir.
+            _repository = repository;
+        }
+
+
+
 
         //Attribute
         // [HttpGet]
-        // [HttpPost]
+        // [HttpPost]  : verileri sunucuya gondermek,kaynag? de?i?tirmek.
         // [HttpPut]
         // [HttpDelete]
 
-        public HomeController(ILogger<HomeController> logger, EselDbContext context, IRepository repository)
-        {
-            _logger = logger;
-            _context = context;
-            _repository = repository;
-            //_repository = repository;
-        }
+
         public IActionResult Index(int id)
         {
             var returnmovies = _repository.Movies;
-            if (id != null && id!= 0)
+            if (id != null && id != 0)
             {
                 returnmovies = returnmovies.Where(i => i.CategoryId == id).ToList();
             }
             else
             {
-                returnmovies = returnmovies.Where(i=> i.CategoryId >= 0).ToList();
+                returnmovies = returnmovies.Where(i => i.CategoryId >= 0).ToList(); //filtreleme
             }
             return View(returnmovies);
-
         }
+
         [HttpPost]
         public IActionResult Index(string searchQuery)
         {
             var returnmovies = _repository.Movies;
             if (!string.IsNullOrEmpty(searchQuery))
             {
-                returnmovies = returnmovies.Where(i => i.Name.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
+                returnmovies = returnmovies.Where(i => i.Name.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0).ToList(); //**
             }
             else
             {
@@ -58,13 +62,23 @@ namespace Esel.Controllers
         }
 
 
-        public IActionResult Create()
+        public IActionResult Create()   //sayfayı oluşturmaya yarayan view fonksiyondur.
         {
             ViewBag.Categories = new SelectList(CategoryRepository.Categories, "Id", "Name");
             return View();
+
+            // Viewbag, model, api sonucunda dönen data sayfaya data göndermenin çeşitli yollarıdır.
         }
+
+        // boş bi kutu bunun içine herşey koyabilirsin sayı, moviemodel, yazı, liste
+
+        public IActionResult Yenisayfa()
+        {
+            return View();
+        }
+
         [HttpPost]
-        public IActionResult Create(MovieModel m)
+        public IActionResult Create (MovieModel m)  //sadece filmi ekleme fonksiyonudur. sayfa ile bir bağlantısı yoktur.
         {
             m.TrailerUrl = ConvertToEmbedLink(m.TrailerUrl);
 
@@ -72,13 +86,29 @@ namespace Esel.Controllers
             _context.SaveChanges();
 
             return View("Index", _repository.Movies);
-
-
         }
-        public IActionResult Details (int id)
+
+
+        public IActionResult Details(int id)
         {
-            return View(_repository.Movies.FirstOrDefault(i=>i.Id == id));
+            return View(_repository.Movies.FirstOrDefault(i => i.Id == id));
         }
+
+        public IActionResult Delete(int id)
+        {
+
+            MovieModel silinecekFilm = _repository.Movies.FirstOrDefault(film => film.Id == id);
+            if (silinecekFilm != null)
+            {
+
+                _context.Movies.Remove(silinecekFilm);
+                _context.SaveChanges();
+            }
+
+
+            return View("Index", _repository.Movies);
+        }
+
 
         private string ConvertToEmbedLink(string youtubeLink)
         {

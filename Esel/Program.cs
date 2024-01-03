@@ -4,12 +4,19 @@ using Esel.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Services.AddDbContext<EselDbContext>(o =>
-o.UseSqlServer(builder.Configuration.GetConnectionString("EselWebContext") ?? throw new InvalidOperationException("veri taban? bulunamad?")));
+    o.UseSqlServer(builder.Configuration.GetConnectionString("EselWebContext") ??    //2
+    throw new InvalidOperationException("veri taban? bulunamad?")));
+//EselDbContext ad?ndaki bir veritaban? ba?lam?n? yap?land?r?r ve bu ba?lam?n
+  //  SQL Server veritaban?na ba?lanmas?n? sa?lar.
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<IRepository, EfRepository>();
+
+builder.Services.AddScoped<IRepository, EfRepository>();   ///1
+
+
 var app = builder.Build();
 
 

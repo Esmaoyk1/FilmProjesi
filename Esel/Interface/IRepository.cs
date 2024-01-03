@@ -8,3 +8,4 @@ namespace Esel.Interface
         IEnumerable<CategoryModel> Categories { get; }
     }
 }
+

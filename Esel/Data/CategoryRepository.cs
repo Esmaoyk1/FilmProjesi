@@ -4,7 +4,7 @@ namespace Esel.Data
 {
     public class CategoryRepository
     {
-        private static List<CategoryModel> _categories = null; //_movies isimli boş bir liste oluşturduk.
+        private static List<CategoryModel> _categories = null; // boş bir liste oluşturduk.
         static CategoryRepository()
         {
             _categories = new List<CategoryModel>()
@@ -22,23 +22,16 @@ namespace Esel.Data
             };
         }
 
-        public static List<CategoryModel> Categories //Tüm filmleri geriye döndürecek
+        public static List<CategoryModel> Categories //Tüm kategorileri geriye döndürecek
         {
             get
             {
                 return _categories;
             }
         }
-
-        public static void AddCategory(CategoryModel film) //gönderilen filmi repository'e ekleyecek
-        {
-            _categories.Add(film);
-        }
+        
 
 
-        public static CategoryModel GetById(int id) //gelen id bilgisini karşılaştırıp o id'nin bulunduğu filmi geri gönderecek
-        {
-            return _categories.FirstOrDefault(i => i.Id == id);
-        }
+      
     }
 }

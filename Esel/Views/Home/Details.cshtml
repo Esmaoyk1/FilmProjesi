@@ -4,32 +4,32 @@
             <div class="card-body">
                 <div class="row no-gutters">
                     <div class="col-md-3">
-                        <img src="@Model.ImageUrl" alt="@Model.Description" class="card-img" style="border: 3px solid #C1937D;"  />
+                        <img src="@Model.ImageUrl" alt="@Model.Description" class="card-img" style="border: 3px solid deeppink;"  />
                     </div>
 
                     <div class="col-md-8" style="margin:35px;">
                         <div class="card-body">
                             <div class="imdb">
-                                <span class="imdbRatingPlugin" style="float:right;" data-user="ur80028027" data-title="@Model.IMDbStar" data-style="p1"><a href="https://www.imdb.com/title/@Model.IMDbStar/?ref_=plg_rt_1"><img src="https://ia.media-imdb.com/images/G/01/imdb/plugins/rating/images/imdb_46x22.png" alt=" @Model.Name" /></a></span><script>(function (d, s, id) { var js, stags = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) { return; } js = d.createElement(s); js.id = id; js.src = "https://ia.media-imdb.com/images/G/01/imdb/plugins/rating/js/rating.js"; stags.parentNode.insertBefore(js, stags); })(document, "script", "imdb-rating-api");</script>
+                                <span class="imdbRatingPlugin" style="float:right;"  data-title="@Model.IMDbStar" data-style="p1"><a href="https://www.imdb.com/title/@Model.IMDbStar/?ref_=plg_rt_1"><img src="https://ia.media-imdb.com/images/G/01/imdb/plugins/rating/images/imdb_46x22.png" alt=" @Model.Name" /></a></span><script>(function (d, s, id) { var js, stags = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) { return; } js = d.createElement(s); js.id = id; js.src = "https://ia.media-imdb.com/images/G/01/imdb/plugins/rating/js/rating.js"; stags.parentNode.insertBefore(js, stags); })(document, "script", "imdb-rating-api");</script>
                             </div>
-                            <h3 class="card-title" style="color:#C1937D;">
+                            <h3 class="card-title" style="color:deeppink;">
                                 <b>@Model.Name</b>
                             </h3>
 
-                            <p class="card-text"><b style="font-size: 20px; color:#C1937D">Çıkış Yılı:  </b>@Model.ProductionYear</p>
+                            <p class="card-text"><b style="font-size: 20px; color:deeppink">Çıkış Yılı:  </b>@Model.ProductionYear</p>
                             <br />
-                            <p class="card-text"><b style="font-size: 20px; color:#C1937D">Açıklama:    </b>@Model.Description</p>
+                            <p class="card-text"><b style="font-size: 20px; color:deeppink">Açıklama:    </b>@Model.Description</p>
                             <br />
-                            <p class="card-text"><b style="font-size: 20px; color:#C1937D">Yönetmen:    </b>@Model.Yonetmen</p>
+                            <p class="card-text"><b style="font-size: 20px; color:deeppink">Yönetmen:    </b>@Model.Yonetmen</p>
                             <br />
-                            <p class="card-text"><b style="font-size: 20px; color:#C1937D">Oyuncular:   </b>@Model.Oyuncular</p>
+                            <p class="card-text"><b style="font-size: 20px; color:deeppink">Oyuncular:   </b>@Model.Oyuncular</p>
                             <br />
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-3" style="padding:30px;">
-                    <iframe width="634" height="475" src="@Model.TrailerUrl" style="border: 3px solid #C1937D;" frameborder="0" allow="accelerometer;autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe width="634" height="475" src="@Model.TrailerUrl" style="border: 3px solid deeppink;" frameborder="0" allow="accelerometer;autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </div>
 
